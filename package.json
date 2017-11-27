@@ -1,0 +1,25 @@
+{
+  "name": "camper-stock-chart",
+  "version": "1.0.0",
+  "description": "Free Code Camp project Chart the Stock Market",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:blackpuppy/camper-stock-chart.git"
+  },
+  "homepage": "http://github.com:blackpuppy/camper-stock-chart",
+  "bugs": "https://github.com:blackpuppy/camper-stock-chart/issues",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Zhu Ming <mingzhu.z+github@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "mongoose": "^4.13.5",
+    "pug": "^2.0.0-rc.4"
+  }
+}
