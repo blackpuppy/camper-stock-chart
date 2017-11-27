@@ -1,0 +1,28 @@
+doctype html
+html
+    head
+        title Stock Chart - #{title}
+        block styles
+            link(rel='stylesheet', type='text/css', href='/public/css/main.css')
+            link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto:400,500')
+    body
+        block header
+
+        .container
+            //- img(src='/public/img/clementine_150.png')
+            br/
+            br/
+            p(class='clementine-text') Stock Chart
+            p #[em Check out trend of any stocks you choose anywhere!]
+            br/
+            br/
+
+        block content
+
+        block foot
+            footer#footer
+                //p some footer content
+
+        block scripts
+            = '\n'
+            script(type='text/javascript', src='/common/ajax-functions.js')
