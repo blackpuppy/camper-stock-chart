@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+    // read stock codes
+
     // Your First Charts
     var myChart = Highcharts.StockChart('container', {
         chart: {
