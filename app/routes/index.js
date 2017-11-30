@@ -15,4 +15,7 @@ module.exports = function (app) {
         .get(stockHandler.getStocks)
         .post(stockHandler.addStock)
         .delete(stockHandler.deleteStock);
+
+    app.route('/api/stocks/:code')
+        .get(stockHandler.getStockData);
 };
