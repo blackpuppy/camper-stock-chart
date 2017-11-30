@@ -1,25 +1,17 @@
 extends layouts/layout.pug
 
 block content
-    .container
-        br/
-        .btn-container
-            input(type='text' class='location-text' placeholder='Stock Code?')
-            button(type='submit' class='btn btn-search') Add
+    .container.center(id='container' style='height:400px;')
 
-    div(id='container' style='width:80%; height:400px; margin: 0 auto')
-
-    //- ul.container.bar-list
-
-    //- li.bar.hidden
-    //-     img(class='bar-photo')
-    //-     div(class='bar-info')
-    //-         a(class='bar-name')
-    //-         a(class='bar-toggle-attendance' href='#') 0 GOING
-    //-         p(class='bar-desc')
+    .container.center.stock-codes
+        .stock-block
+            input.stock-code(type='text' placeholder='Stock Code?')
+            button(type='submit' class='btn btn-add') Add
 
 block append scripts
     = '\n'
     script(type='text/javascript' src='/public/js/highcharts/highstock.js')
+    = '\n'
     script(type='text/javascript' src='/public/js/highcharts/themes/avocado.js')
+    = '\n'
     script(type='text/javascript' src='controllers/stockController.client.js')
