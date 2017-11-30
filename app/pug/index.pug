@@ -1,12 +1,19 @@
 extends layouts/layout.pug
 
 block content
-    .container.center(id='container' style='height:400px;')
+    .container.center(id='chart' style='height:400px;')
 
-    .container.center.stock-codes
-        .stock-block
-            input.stock-code(type='text' placeholder='Stock Code?')
-            button(type='submit' class='btn btn-add') Add
+    .container.center.stocks
+        form.stock
+            .prompt
+                label Syncs in realtime across clients
+            .content
+                input.stock-code(type='text' placeholder='Stock Code')
+                button(type='submit' class='btn btn-add') Add
+
+    .new-stock.stock.hidden
+        h3
+        span
 
 block append scripts
     = '\n'

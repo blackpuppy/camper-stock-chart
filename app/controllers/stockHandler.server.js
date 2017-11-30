@@ -20,8 +20,10 @@ function StockHandler () {
             });
     };
 
-    this.addStock = function (req, res, next) {
+    this.addStock = function (req, res) {
         console.log('addStock():');
+
+        // TODO: prevent duplicate stock
 
         var newStock = new Stock({
             code: req.body.code
@@ -34,8 +36,13 @@ function StockHandler () {
 
             console.log('saved new stock: ', stock);
 
+            var stockData = {
+                code: stock.code,
+                desc: stock.desc
+            }
+
             res.setHeader('Content-Type', 'application/json');
-            res.status(200).json({result: 'OK', stock: stock});
+            res.status(200).json({result: 'OK', stock: stockData});
         });
     };
 
@@ -51,7 +58,9 @@ function StockHandler () {
                 res.setHeader('Content-Type', 'application/json');
                 res.status(204).json({result: 'OK'});
             });
+    };
 
+    this.getStockData = function (req, res) {
     };
 }
 
