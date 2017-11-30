@@ -8,28 +8,50 @@ function StockHandler () {
     this.getStocks = function (req, res) {
         console.log('getStocks():');
 
-        if (err) { throw err; }
+        Stock
+            .find()
+            .exec(function (err, stocks) {
+                if (err) { throw err; }
 
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json({result: 'OK', stocks: stocks});
+                console.log('getStocks: stocks = ', JSON.stringify(stocks));
+
+                res.setHeader('Content-Type', 'application/json');
+                res.status(200).json({result: 'OK', stocks: stocks});
+            });
     };
 
-    this.addStock = function (req, res) {
+    this.addStock = function (req, res, next) {
         console.log('addStock():');
 
-        if (err) { throw err; }
+        var newStock = new Stock({
+            code: req.body.code
+        });
 
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json({result: 'OK'});
+        console.log('new stock to save: ', newStock);
+
+        newStock.save(function (err, stock) {
+            if (err) { throw err; }
+
+            console.log('saved new stock: ', stock);
+
+            res.setHeader('Content-Type', 'application/json');
+            res.status(200).json({result: 'OK', stock: stock});
+        });
     };
 
     this.deleteStock = function (req, res) {
         console.log('deleteStock():');
 
-        if (err) { throw err; }
+        Stock
+            .findOne({'code': req.body.code})
+            .remove()
+            .exec(function (err, result) {
+                if (err) { throw err; }
 
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json({result: 'OK'});
+                res.setHeader('Content-Type', 'application/json');
+                res.status(204).json({result: 'OK'});
+            });
+
     };
 }
 
