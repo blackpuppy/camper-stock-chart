@@ -5,6 +5,13 @@ var axios = require('axios'),
     Stock = require('../models/stocks');
 
 function StockHandler () {
+    var composeStock = function (stock) {
+        return {
+            code: stock.code,
+            desc: stock.desc
+        };
+    };
+
     this.getStocks = function (req, res) {
         console.log('getStocks():');
 
@@ -15,8 +22,10 @@ function StockHandler () {
 
                 console.log('getStocks: stocks = ', JSON.stringify(stocks));
 
+                var stocksData = stocks.map(composeStock);
+
                 res.setHeader('Content-Type', 'application/json');
-                res.status(200).json({result: 'OK', stocks: stocks});
+                res.status(200).json({result: 'OK', stocks: stocksData});
             });
     };
 
@@ -39,7 +48,7 @@ function StockHandler () {
             var stockData = {
                 code: stock.code,
                 desc: stock.desc
-            }
+            };
 
             res.setHeader('Content-Type', 'application/json');
             res.status(200).json({result: 'OK', stock: stockData});

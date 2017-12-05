@@ -5,8 +5,8 @@
         addButton = document.querySelector('.btn-add'),
         stocksUrl = appUrl + '/api/stocks';
 
-    var showNewStock = function (stock) {
-        console.log('showNewStock(): stock = ', stock);
+    var showStock = function (stock) {
+        console.log('showStock(): stock = ', stock);
 
         var template = document.querySelector('.new-stock') || null;
 
@@ -19,6 +19,9 @@
             desc.innerHTML = stock.desc || '';
             stocksEle.appendChild(stockFragment);
         }
+    };
+
+    var plotStock = function (stock) {
     };
 
     var addStock = function (e) {
@@ -39,13 +42,28 @@
 
             var newStock = JSON.parse(result);
 
-            showNewStock(newStock.stock);
+            showStock(newStock.stock);
         }, JSON.stringify(data));
+    };
+
+    var getStocks = function() {
+        ajaxFunctions.ajaxRequest('GET', stocksUrl, function (result) {
+            console.log('GET ', stocksUrl, ' success: result = ', result);
+
+            var stocks = JSON.parse(result);
+
+            console.log('  stocks = ', stocks);
+
+            for (var i = 0; i < stocks.stocks.length; i++) {
+                showStock(stocks.stocks[i]);
+            }
+        });
     };
 
     addButton.addEventListener('click', addStock, false);
 
     // read stock codes
+    getStocks();
 
     // Your First Charts
     var myChart = Highcharts.StockChart('chart', {
