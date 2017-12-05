@@ -22,6 +22,7 @@
     };
 
     var plotStock = function (stock) {
+        console.log('plotStock(): stock = ', stock);
     };
 
     var addStock = function (e) {
@@ -39,6 +40,8 @@
 
         ajaxFunctions.ajaxRequest('POST', stocksUrl, function (result) {
             console.log('POST ', stocksUrl, ' success: result = ', result);
+
+            stockCodeEle.value = '';
 
             var newStock = JSON.parse(result);
 

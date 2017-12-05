@@ -33,9 +33,11 @@ function StockHandler () {
         console.log('addStock():');
 
         // TODO: prevent duplicate stock
+        // TODO: query stock API to get stock descrption
 
         var newStock = new Stock({
-            code: req.body.code
+            code: req.body.code,
+            desc: req.body.code + ' fake description'
         });
 
         console.log('new stock to save: ', newStock);
