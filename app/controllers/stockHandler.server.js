@@ -4,7 +4,7 @@ var axios = require('axios'),
     configAuth = require('../config/auth'),
     Stock = require('../models/stocks');
 
-function StockHandler () {
+function StockHandler (io) {
     var composeStock = function (stock) {
         return {
             code: stock.code,
@@ -33,7 +33,7 @@ function StockHandler () {
         console.log('addStock():');
 
         // TODO: prevent duplicate stock
-        // TODO: query stock API to get stock descrption
+        // TODO: query stock API to get stock description
 
         var newStock = new Stock({
             code: req.body.code,
@@ -54,6 +54,8 @@ function StockHandler () {
 
             res.setHeader('Content-Type', 'application/json');
             res.status(200).json({result: 'OK', stock: stockData});
+
+            io.emit('stock-added', stock.code);
         });
     };
 
@@ -68,6 +70,8 @@ function StockHandler () {
 
                 res.setHeader('Content-Type', 'application/json');
                 res.status(204).json({result: 'OK'});
+
+                io.emit('stock-deleted', req.body.code);
             });
     };
 

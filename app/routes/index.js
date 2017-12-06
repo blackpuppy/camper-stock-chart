@@ -5,8 +5,8 @@ var path = process.cwd(),
     socketIO = require('socket.io');
 
 module.exports = function (server, app) {
-    var stockHandler = new StockHandler(),
-        io = socketIO(server);
+    var io = socketIO(server),
+        stockHandler = new StockHandler(io);
 
     app.route('/')
         .get(function (req, res) {
@@ -27,7 +27,7 @@ module.exports = function (server, app) {
             console.log('Client disconnected');
         });
     });
-    setInterval(function () {
-        io.emit('time', new Date().toTimeString());
-    }, 1000);
+    // setInterval(function () {
+    //     io.emit('time', new Date().toTimeString());
+    // }, 1000);
 };

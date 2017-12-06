@@ -94,9 +94,19 @@
     });
 
     var socket = io();
-    var el = document.getElementById('server-time');
 
-    socket.on('time', function(timeString) {
-        el.innerHTML = 'Server time: ' + timeString;
+    // var el = document.getElementById('server-time');
+    // socket.on('time', function(timeString) {
+    //     el.innerHTML = 'Server time: ' + timeString;
+    // });
+
+    socket.on('stock-added', function(stockCode) {
+        console.log('stock added: ', stockCode);
+        // TODO: get new stock data and plot stock
+    });
+
+    socket.on('stock-deleted', function(stockCode) {
+        console.log('stock deleted: ', stockCode);
+        // TODO: remove stock
     });
 })();
