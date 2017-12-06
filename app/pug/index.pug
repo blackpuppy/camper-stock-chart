@@ -3,6 +3,9 @@ extends layouts/layout.pug
 block content
     .container.center(id='chart' style='height:400px;')
 
+    .container.center
+        p(id='server-time')
+
     .container.center.stocks
         form.stock
             .prompt
@@ -20,5 +23,7 @@ block append scripts
     script(type='text/javascript' src='/public/js/highcharts/highstock.js')
     = '\n'
     script(type='text/javascript' src='/public/js/highcharts/themes/avocado.js')
+    = '\n'
+    script(type='text/javascript' src='/public/js/socket.io-client/dist/socket.io.js')
     = '\n'
     script(type='text/javascript' src='controllers/stockController.client.js')

@@ -2,6 +2,7 @@
 
 var bodyParser = require('body-parser'),
     express = require('express'),
+    http = require('http'),
     mongoose = require('mongoose'),
     path = require('path'),
     session = require('express-session');
@@ -29,10 +30,12 @@ app.use(session({
     saveUninitialized: true
 }));
 
-var routes = require('./app/routes/index.js');
-routes(app);
-
 var port = process.env.PORT || 8080;
-app.listen(port,  function () {
+var server = http.Server(app);
+
+var routes = require('./app/routes/index.js');
+routes(server, app);
+
+server.listen(port,  function () {
     console.log('Node.js listening on port ' + port + '...');
 });

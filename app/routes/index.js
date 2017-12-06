@@ -1,10 +1,12 @@
 'use strict';
 
-var path = process.cwd();
-var StockHandler = require(path + '/app/controllers/stockHandler.server.js');
+var path = process.cwd(),
+    StockHandler = require(path + '/app/controllers/stockHandler.server.js'),
+    socketIO = require('socket.io');
 
-module.exports = function (app) {
-    var stockHandler = new StockHandler();
+module.exports = function (server, app) {
+    var stockHandler = new StockHandler(),
+        io = socketIO(server);
 
     app.route('/')
         .get(function (req, res) {
@@ -18,4 +20,14 @@ module.exports = function (app) {
 
     app.route('/api/stocks/:code')
         .get(stockHandler.getStockData);
+
+    io.on('connection', function (socket) {
+        console.log('Client connected');
+        socket.on('disconnect', function () {
+            console.log('Client disconnected');
+        });
+    });
+    setInterval(function () {
+        io.emit('time', new Date().toTimeString());
+    }, 1000);
 };
