@@ -8,6 +8,7 @@ function StockHandler (io) {
     var composeStock = function (stock) {
         return {
             code: stock.code,
+            name: stock.name,
             desc: stock.desc
         };
     };
@@ -32,31 +33,54 @@ function StockHandler (io) {
     this.addStock = function (req, res) {
         console.log('addStock():');
 
-        // TODO: prevent duplicate stock
-        // TODO: query stock API to get stock description
+        // read stock from database
+        Stock
+            .findOne({'code': req.body.code})
+            .exec(function (err, stock) {
+                if (err) {
+                    throw err;
+                }
 
-        var newStock = new Stock({
-            code: req.body.code,
-            desc: req.body.code + ' fake description'
-        });
+                console.log('stock found = ', JSON.stringify(stock));
 
-        console.log('new stock to save: ', newStock);
+                if (stock) {
+                    var stockData = {
+                        code: stock.code,
+                        name: stock.name,
+                        desc: stock.desc
+                    };
 
-        newStock.save(function (err, stock) {
-            if (err) { throw err; }
+                    res.setHeader('Content-Type', 'application/json');
+                    res.status(200).json({result: 'OK', stock: stockData});
+                } else {
+                    // TODO: query stock API to get stock description
 
-            console.log('saved new stock: ', stock);
+                    var newStock = new Stock({
+                        code: req.body.code,
+                        name: req.body.code + ' fake name',
+                        desc: req.body.code + ' fake description'
+                    });
 
-            var stockData = {
-                code: stock.code,
-                desc: stock.desc
-            };
+                    console.log('new stock to save: ', newStock);
 
-            res.setHeader('Content-Type', 'application/json');
-            res.status(200).json({result: 'OK', stock: stockData});
+                    newStock.save(function (err, stock) {
+                        if (err) { throw err; }
 
-            io.emit('stock-added', stock.code);
-        });
+                        console.log('saved new stock: ', stock);
+
+                        var stockData = {
+                            code: stock.code,
+                            name: stock.name,
+                            desc: stock.desc
+                        };
+
+                        res.setHeader('Content-Type', 'application/json');
+                        res.status(200).json({result: 'OK', stock: stockData});
+
+                        io.emit('stock-added', stock.code);
+                    });
+                }
+            });
     };
 
     this.deleteStock = function (req, res) {

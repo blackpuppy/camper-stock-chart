@@ -13,10 +13,10 @@
         if (!!template) {
             var stockFragment = template.cloneNode(true),
                 title = stockFragment.querySelector('h3'),
-                desc = stockFragment.querySelector('span');
+                name = stockFragment.querySelector('span');
             stockFragment.classList.remove('hidden');
             title.innerHTML = stock.code;
-            desc.innerHTML = stock.desc || '';
+            name.innerHTML = stock.name || '';
             stocksEle.appendChild(stockFragment);
         }
     };
