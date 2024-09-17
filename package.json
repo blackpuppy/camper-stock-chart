@@ -20,7 +20,7 @@
     "express": "^4.20.0",
     "express-session": "^1.15.6",
     "highcharts": "^9.0.0",
-    "mongoose": "^5.8.9",
+    "mongoose": "^5.13.20",
     "pug": "^3.0.3",
     "socket.io": "^2.4.0"
   }
